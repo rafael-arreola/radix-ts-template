@@ -47,12 +47,6 @@ export const GuardNavigation = (props: PropsWithChildren<AuthRequiredProps>) => 
     }
   }, [isAuthenticated, error, isLoading, login, isInLogin, navigate, props.authenticated]);
 
-  console.log(' == == == == == == == == == == == == ==');
-  console.log('isLoading', isLoading);
-  console.log('isAuthenticated', isAuthenticated);
-  console.log('error', error);
-  console.log('isInLogin', isInLogin);
-  console.log(props.authenticated);
   if (isLoading) {
     return <LoadingPage />;
   }
