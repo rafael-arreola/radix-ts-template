@@ -26,6 +26,7 @@ export const GuardNavigation = (props: PropsWithChildren<AuthRequiredProps>) => 
       navigate('/');
       return;
     }
+
     switch (props.authenticated) {
       case LoginMethod.NotRequired:
         break;
@@ -46,7 +47,13 @@ export const GuardNavigation = (props: PropsWithChildren<AuthRequiredProps>) => 
     }
   }, [isAuthenticated, error, isLoading, login, isInLogin, navigate, props.authenticated]);
 
-  if (isLoading || (!isAuthenticated && !isLoading && !error)) {
+  console.log(' == == == == == == == == == == == == ==');
+  console.log('isLoading', isLoading);
+  console.log('isAuthenticated', isAuthenticated);
+  console.log('error', error);
+  console.log('isInLogin', isInLogin);
+  console.log(props.authenticated);
+  if (isLoading) {
     return <LoadingPage />;
   }
 

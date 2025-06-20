@@ -7,6 +7,7 @@ import WelcomePage from '@/pages/welcome/welcome-page';
 import { AppProvider } from './components/providers/app/app-provider';
 import { GuardNavigation, LoginMethod } from './components/providers/auth/auth-guards';
 import { HttpProvider } from './components/providers/http/http-provider';
+import LoginPage from './pages/ auth/login-page';
 
 /**
  * HttpProvider
@@ -34,12 +35,12 @@ export function RouteManager() {
   return (
     <Routes>
       <Route path="/auth" element={<GuardNavigation authenticated={LoginMethod.NotRequired} />}>
-        <Route path="login" element={<div>Soy un login</div>} />
+        <Route path="login" element={<LoginPage />} />
       </Route>
       <Route
         path="*"
         element={
-          <GuardNavigation authenticated={LoginMethod.NotRequired} layout={<WrapperDashboard />} />
+          <GuardNavigation authenticated={LoginMethod.Manual} layout={<WrapperDashboard />} />
         }
       >
         <Route index={true} element={<WelcomePage />} />

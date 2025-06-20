@@ -2,8 +2,10 @@ import { createContext } from 'react';
 
 type LoginFn = (params?: unknown) => void;
 type LogoutFn = (params?: unknown) => void;
+type GetTokenFn = () => Promise<string | undefined>;
 
 export interface AuthProviderProps {
+  getToken?: GetTokenFn;
   user?: unknown;
   error?: string;
   login: LoginFn;

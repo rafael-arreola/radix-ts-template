@@ -7,7 +7,7 @@ export function AuthWithoutPermission() {
   const session = useAuth();
   return (
     <div className="flex flex-col items-center justify-center content-center w-full h-screen">
-      <img src="/logo.svg" alt="Permissions" className="w-64 h-48" />
+      <img src="/favicon.svg" alt="Permissions" className="w-64 h-48" />
 
       <h2 className="text-xl font-bold text-[#12344A]">oops! Lo siento, no tienes acceso</h2>
 

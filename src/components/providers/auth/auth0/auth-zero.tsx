@@ -46,6 +46,10 @@ function AuthWrapper(props: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         user,
+        getToken: () =>
+          new Promise<string>((resolve, reject) => {
+            auth.getAccessTokenSilently().then(resolve).catch(reject);
+          }),
         error: auth.error?.message,
         login: () => {
           auth.loginWithRedirect({

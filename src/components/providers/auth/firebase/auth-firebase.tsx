@@ -1,32 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { PropsWithChildren, useEffect, useState } from 'react';
 
-import {
-  FIREBASE_API_KEY,
-  FIREBASE_APP_ID,
-  FIREBASE_AUTH_DOMAIN,
-  FIREBASE_MEASUREMENT_ID,
-  FIREBASE_MESSAGING_SENDER_ID,
-  FIREBASE_PROJECT_ID,
-  FIREBASE_STORAGE_BUCKET,
-} from '@/utils/envs';
-
 import { AuthContext } from '../auth-provider';
-
-const firebaseConfig = {
-  apiKey: FIREBASE_API_KEY,
-  authDomain: FIREBASE_AUTH_DOMAIN,
-  projectId: FIREBASE_PROJECT_ID,
-  storageBucket: FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
-  appId: FIREBASE_APP_ID,
-  measurementId: FIREBASE_MEASUREMENT_ID,
-};
-
-console.log(firebaseConfig);
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { FirebaseAuth } from './firebase';
 
 export default function AuthFirebaseWrapperProvider(props: PropsWithChildren) {
   return <AuthWrapper>{props.children}</AuthWrapper>;
@@ -34,15 +10,18 @@ export default function AuthFirebaseWrapperProvider(props: PropsWithChildren) {
 
 function AuthWrapper(props: PropsWithChildren) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setIsLoading(false);
+    return onAuthStateChanged(FirebaseAuth, async (user) => {
+      setLoading(true);
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
     });
-
-    return () => unsubscribe();
   }, []);
 
   const login = async () => {};
@@ -59,14 +38,24 @@ function AuthWrapper(props: PropsWithChildren) {
         picture: user.photoURL,
       }
     : undefined;
-
   return (
     <AuthContext.Provider
       value={{
+        getToken: () =>
+          new Promise((resolve, reject) => {
+            if (!user) {
+              reject(new Error('User is not authenticated'));
+              return;
+            }
+            user
+              .getIdTokenResult(true)
+              .then((access) => resolve(access.token))
+              .catch(reject);
+          }),
         user: adaptedUser,
         login: login,
         logout: logout,
-        isLoading: isLoading,
+        isLoading: loading,
         isAuthenticated: !!user,
       }}
     >
