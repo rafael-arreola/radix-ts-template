@@ -1,0 +1,169 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #85c440;
+  --color-secondary: #12344a;
+}
+
+.radix-themes {
+  --default-font-family: 'Barlow', 'Roboto', sans-serif;
+  --heading-font-family: 'Barlow', 'Roboto', sans-serif;
+  --code-font-family: 'Barlow', 'Roboto', sans-serif;
+  --strong-font-family: 'Barlow', 'Roboto', sans-serif;
+  --em-font-family: 'Barlow', 'Roboto', sans-serif;
+  --quote-font-family: 'Barlow', 'Roboto', sans-serif;
+  --cursor-button: pointer;
+}
+
+:root,
+.light,
+.light-theme {
+  --lime-1: #fbfdfa;
+  --lime-2: #f6fbf2;
+  --lime-3: #e4fad3;
+  --lime-4: #d3f6b7;
+  --lime-5: #c2ed9e;
+  --lime-6: #b0e086;
+  --lime-7: #9acf69;
+  --lime-8: #7dbb35;
+  --lime-9: #85c440;
+  --lime-10: #7ab932;
+  --lime-11: #50800e;
+  --lime-12: #2d4316;
+
+  --lime-a1: #33990005;
+  --lime-a2: #4fb1000d;
+  --lime-a3: #63e3002c;
+  --lime-a4: #64e00048;
+  --lime-a5: #5fd00061;
+  --lime-a6: #59be0079;
+  --lime-a7: #54ae0096;
+  --lime-a8: #5ba900ca;
+  --lime-a9: #5cb000bf;
+  --lime-a10: #5aa800cd;
+  --lime-a11: #467900f1;
+  --lime-a12: #193100e9;
+
+  --lime-contrast: #fff;
+  --lime-surface: #f4faefcc;
+  --lime-indicator: #85c440;
+  --lime-track: #85c440;
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+  @media (color-gamut: p3) {
+    :root,
+    .light,
+    .light-theme {
+      --lime-1: oklch(99.2% 0.0054 131.4);
+      --lime-2: oklch(98.2% 0.0127 131.4);
+      --lime-3: oklch(95.9% 0.0561 131.4);
+      --lime-4: oklch(93.2% 0.0891 131.4);
+      --lime-5: oklch(89.7% 0.1126 131.4);
+      --lime-6: oklch(85.3% 0.1286 131.4);
+      --lime-7: oklch(79.5% 0.1433 131.4);
+      --lime-8: oklch(72.4% 0.1744 131.4);
+      --lime-9: oklch(75.2% 0.1744 131.4);
+      --lime-10: oklch(71.6% 0.1744 131.4);
+      --lime-11: oklch(54.4% 0.144 131.4);
+      --lime-12: oklch(35.4% 0.0743 131.4);
+
+      --lime-a1: color(display-p3 0.2157 0.6078 0.0196 / 0.02);
+      --lime-a2: color(display-p3 0.349 0.6745 0.0235 / 0.048);
+      --lime-a3: color(display-p3 0.4431 0.8549 0.0039 / 0.161);
+      --lime-a4: color(display-p3 0.4431 0.851 0.0039 / 0.259);
+      --lime-a5: color(display-p3 0.4196 0.7882 0.0039 / 0.35);
+      --lime-a6: color(display-p3 0.3804 0.7137 0.0039 / 0.436);
+      --lime-a7: color(display-p3 0.349 0.6471 0 / 0.542);
+      --lime-a8: color(display-p3 0.3529 0.6078 0 / 0.702);
+      --lime-a9: color(display-p3 0.3647 0.6431 0 / 0.667);
+      --lime-a10: color(display-p3 0.3451 0.6039 0 / 0.714);
+      --lime-a11: color(display-p3 0.2392 0.4039 0 / 0.844);
+      --lime-a12: color(display-p3 0.098 0.1686 0 / 0.891);
+
+      --lime-contrast: #fff;
+      --lime-surface: color(display-p3 0.9608 0.9804 0.9412 / 0.8);
+      --lime-indicator: oklch(75.2% 0.1744 131.4);
+      --lime-track: oklch(75.2% 0.1744 131.4);
+    }
+  }
+}
+
+:root,
+.light,
+.light-theme {
+  --gray-1: #f8fdff;
+  --gray-2: #f2fbff;
+  --gray-3: #e2f3ff;
+  --gray-4: #d6ecfd;
+  --gray-5: #c9e5fb;
+  --gray-6: #bedef7;
+  --gray-7: #acd5f3;
+  --gray-8: #8cc3eb;
+  --gray-9: #5e95bb;
+  --gray-10: #568aae;
+  --gray-11: #3f6a87;
+  --gray-12: #012338;
+
+  --gray-a1: #00b7ff07;
+  --gray-a2: #00b1ff0d;
+  --gray-a3: #0096ff1d;
+  --gray-a4: #0089f329;
+  --gray-a5: #0085ed36;
+  --gray-a6: #007ee041;
+  --gray-a7: #007edb53;
+  --gray-a8: #007ad373;
+  --gray-a9: #005794a1;
+  --gray-a10: #004f85a9;
+  --gray-a11: #003960c0;
+  --gray-a12: #002237fe;
+
+  --gray-contrast: #ffffff;
+  --gray-surface: #ffffffcc;
+  --gray-indicator: #5e95bb;
+  --gray-track: #5e95bb;
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+  @media (color-gamut: p3) {
+    :root,
+    .light,
+    .light-theme {
+      --gray-1: oklch(99.2% 0.0075 240.4);
+      --gray-2: oklch(98.3% 0.0137 240.4);
+      --gray-3: oklch(95.6% 0.0247 240.4);
+      --gray-4: oklch(93.2% 0.0326 240.4);
+      --gray-5: oklch(90.9% 0.0421 240.4);
+      --gray-6: oklch(88.6% 0.0485 240.4);
+      --gray-7: oklch(85.4% 0.0598 240.4);
+      --gray-8: oklch(79.4% 0.081 240.4);
+      --gray-9: oklch(64.6% 0.0817 240.4);
+      --gray-10: oklch(61.1% 0.0776 240.4);
+      --gray-11: oklch(50.5% 0.067 240.4);
+      --gray-12: oklch(24.4% 0.0556 240.4);
+
+      --gray-a1: color(display-p3 0.0235 0.6745 1 / 0.024);
+      --gray-a2: color(display-p3 0.0196 0.6471 0.9137 / 0.044);
+      --gray-a3: color(display-p3 0.0039 0.502 0.9647 / 0.102);
+      --gray-a4: color(display-p3 0.0078 0.4667 0.8941 / 0.146);
+      --gray-a5: color(display-p3 0.0078 0.4549 0.8784 / 0.193);
+      --gray-a6: color(display-p3 0.0039 0.4275 0.8157 / 0.232);
+      --gray-a7: color(display-p3 0.0039 0.4314 0.8039 / 0.295);
+      --gray-a8: color(display-p3 0.0039 0.4 0.7686 / 0.404);
+      --gray-a9: color(display-p3 0 0.2824 0.5176 / 0.585);
+      --gray-a10: color(display-p3 0 0.251 0.4667 / 0.616);
+      --gray-a11: color(display-p3 0 0.1765 0.3255 / 0.714);
+      --gray-a12: color(display-p3 0 0.0941 0.1765 / 0.957);
+
+      --gray-contrast: #ffffff;
+      --gray-surface: color(display-p3 1 1 1 / 80%);
+      --gray-indicator: oklch(64.6% 0.0817 240.4);
+      --gray-track: oklch(64.6% 0.0817 240.4);
+    }
+  }
+}
+
+.currency-field input {
+  text-align: right;
+  padding-right: 1em;
+}

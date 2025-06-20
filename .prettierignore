@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+build
+build-ssr
+logs
+src/providers/gql/types
+
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
