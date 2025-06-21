@@ -20,6 +20,8 @@ export const GuardNavigation = (props: PropsWithChildren<AuthRequiredProps>) => 
   const navigate = useNavigate();
   const { isLoading, isAuthenticated, error, login } = useAuth();
   const isInLogin = location.pathname.startsWith('/auth');
+  const isLogged = !isAuthenticated && !isLoading && !error;
+
   useEffect(() => {
     // si el usuario esta autenticado y la ruta empieza con /auth, redirigir a /
     if (!isLoading && isAuthenticated && isInLogin) {
@@ -31,21 +33,19 @@ export const GuardNavigation = (props: PropsWithChildren<AuthRequiredProps>) => 
       case LoginMethod.NotRequired:
         break;
       case LoginMethod.Automatic:
-        if (!isLoading && !isAuthenticated && !error) {
+        if (isLogged) {
           login();
         }
         break;
       case LoginMethod.Manual:
-        if (!isLoading && !isAuthenticated && !error) {
-          if (!isInLogin) {
-            navigate('/auth/login');
-          }
+        if (!isLogged && !isInLogin) {
+          navigate('/auth/login');
         }
         break;
       default:
         return;
     }
-  }, [isAuthenticated, error, isLoading, login, isInLogin, navigate, props.authenticated]);
+  }, [isLogged, isInLogin, login, props.authenticated]);
 
   if (isLoading) {
     return <LoadingPage />;
