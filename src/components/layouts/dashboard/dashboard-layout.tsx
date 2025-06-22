@@ -1,10 +1,10 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { DropdownMenu, IconButton, ScrollArea } from '@radix-ui/themes';
 import classnames from 'classnames';
 import { HomeIcon, PanelLeftCloseIcon, PanelLeftOpenIcon } from 'lucide-react';
 import { Avatar } from 'radix-ui';
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 
+import { useAuth } from '@/hooks/auth';
 import { stringAvatar } from '@/utils/strings';
 
 interface SidebarItem {
@@ -15,7 +15,7 @@ interface SidebarItem {
 }
 
 export function DashboardLayout(props: PropsWithChildren) {
-  const { user, logout } = useAuth0();
+  const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const navigation: SidebarItem[] = [{ name: 'Inicio', href: '/', icon: HomeIcon }];
@@ -29,6 +29,10 @@ export function DashboardLayout(props: PropsWithChildren) {
     const storedState = localStorage.getItem('sidebarOpen');
     setSidebarOpen(JSON.parse(storedState || 'true'));
   }, []);
+
+  if (!user) {
+    return <div></div>;
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -51,7 +55,7 @@ export function DashboardLayout(props: PropsWithChildren) {
             {/* Portal custom actions */}
           </div>
           <div className="flex items-center gap-3">
-            <span className="select-none">{user?.name || ''}</span>
+            <span className="select-none">{user?.email || ''}</span>
             <DropdownMenu.Root>
               <DropdownMenu.Trigger className="cursor-pointer">
                 <Avatar.Root className="inline-flex items-center justify-center size-12 rounded-full bg-secondary text-white font-bold text-lg">
@@ -59,15 +63,7 @@ export function DashboardLayout(props: PropsWithChildren) {
                 </Avatar.Root>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
-                <DropdownMenu.Item
-                  onClick={() =>
-                    logout({
-                      logoutParams: { returnTo: window.location.origin },
-                    })
-                  }
-                >
-                  Cerrar sesión
-                </DropdownMenu.Item>
+                <DropdownMenu.Item onClick={() => logout()}>Cerrar sesión</DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu.Root>
           </div>

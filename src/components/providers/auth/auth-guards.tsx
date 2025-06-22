@@ -12,7 +12,7 @@ export enum LoginMethod {
   Manual = 'manual',
 }
 interface AuthRequiredProps {
-  authenticated: LoginMethod;
+  authMethod: LoginMethod;
   layout?: ReactNode;
 }
 export const GuardNavigation = (props: PropsWithChildren<AuthRequiredProps>) => {
@@ -20,40 +20,40 @@ export const GuardNavigation = (props: PropsWithChildren<AuthRequiredProps>) => 
   const navigate = useNavigate();
   const { isLoading, isAuthenticated, error, login } = useAuth();
   const isInLogin = location.pathname.startsWith('/auth');
-  const isLogged = !isAuthenticated && !isLoading && !error;
 
   useEffect(() => {
-    // si el usuario esta autenticado y la ruta empieza con /auth, redirigir a /
     if (!isLoading && isAuthenticated && isInLogin) {
       navigate('/');
       return;
     }
 
-    switch (props.authenticated) {
+    switch (props.authMethod) {
       case LoginMethod.NotRequired:
         break;
       case LoginMethod.Automatic:
-        if (isLogged) {
+        if (isAuthenticated) {
           login();
         }
         break;
       case LoginMethod.Manual:
-        if (!isLogged && !isInLogin) {
+        if (!isAuthenticated && !isInLogin) {
           navigate('/auth/login');
         }
         break;
       default:
         return;
     }
-  }, [isLogged, isInLogin, login, props.authenticated]);
-
+  }, [isLoading, isAuthenticated, isInLogin, login, props.authMethod, navigate]);
+  console.log({ isLoading, isAuthenticated, isInLogin });
   if (isLoading) {
     return <LoadingPage />;
   }
 
   if (error) {
+    console.error('Auth error:', error);
     return <AuthWithoutPermission />;
   }
 
+  console.log(props.layout ? 'Layout provided' : 'No layout provided');
   return props.layout ?? <Outlet />;
 };
